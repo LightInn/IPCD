@@ -43,28 +43,23 @@
   #line(start: (25%, 0%), end: (75%, 0%), stroke: 0.6pt + gray)
 ]
 
-#align(center)[
-  #set text(font: heading-fonts, size: 20pt, weight: 700)
-  #strong[NEOVA PROTOCOL] \
-  #set text(font: heading-fonts, size: 12pt, weight: 500)
-  Technical Whitepaper / Vision Document
-]
+// Cover page (moved to separate file)
+#import "content/cover.typ": cover
+#cover(
+  title: [IPCD — Inter‑Planetary Content Delivery],
+  subtitle: [Technical Whitepaper / Vision Document],
+  tagline: [A Paradigm Shift in Decentralized, Client‑Driven Content Distribution],
+  // To include logo, set logo to a path like "/assets/image/neova-logo.png"
+  logo: none,
+  authors: [Neova Protocol],
+  date: [September 28, 2024],
+  version: [Draft 1.0],
+)
+#pagebreak()
 
-#align(center)[
-  #line(length: 80%)
-]
-
-#v(1cm)
-
-#align(center)[
-  #strong[Inter-Planetary Content Delivery (#gls("ipcd"))] \
-  A Paradigm Shift in Decentralized, Client-Driven Content Distribution
-]
-#align(center)[
-  #strong[Authors:] Neova Protocol \
-  #strong[Date:] September 28, 2024 \
-  #strong[Version:] Draft 1.0
-]
+// Sommaire / Table of Contents
+#show outline: set heading(numbering: none)
+#outline(title: [Sommaire])
 #pagebreak()
 
 
@@ -201,3 +196,7 @@ The end-to-end data retrieval sequence under the #gls("ipcd") protocol is a mult
 
 #pagebreak()
 #print-paper-glossary(show-all: true)
+
+// Bibliography / References
+#pagebreak()
+#bibliography("references.bib", title: [References], style: "ieee", full: true)
