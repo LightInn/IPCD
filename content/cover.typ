@@ -4,16 +4,11 @@
   tagline: [A Paradigm Shift in Decentralized, Client‑Driven Content Distribution],
   logo: none,
   authors: [Neova Protocol],
-  date: [September 28, 2024],
+  date: [September 29, 2024],
   version: [Draft 1.0],
 ) => {
+  v(4cm)
   align(center)[
-    // Optional logo
-    #if logo != none [
-      #image(logo, width: 3cm)
-      #v(0.6cm)
-    ]
-
     // Main title and subtitle
     #set text(size: 22pt, font: ("Noto Sans", "DejaVu Sans"), weight: 700)
     #title \
@@ -25,13 +20,24 @@
     #line(length: 80%)
   ]
 
+
   v(0.8cm)
   align(center)[
     #set text(size: 11pt, font: ("Noto Sans", "DejaVu Sans"), weight: 500)
     #tagline
   ]
 
-  v(0.8cm)
+  v(2.8cm)
+  align(center)[
+    // Optional logo
+    #if logo != none [
+      #image(logo, width: 3cm)
+      #v(0.6cm)
+    ]
+  ]
+
+
+  v(2.8cm)
   align(center)[
     #strong[Authors:] #authors \
     #strong[Date:] #date \

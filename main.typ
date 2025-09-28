@@ -50,16 +50,16 @@
   subtitle: [Technical Whitepaper / Vision Document],
   tagline: [A Paradigm Shift in Decentralized, Client‑Driven Content Distribution],
   // To include logo, set logo to a path like "/assets/image/neova-logo.png"
-  logo: none,
+  logo: "/assets/logo/logo_neova.svg",
   authors: [Neova Protocol],
   date: [September 28, 2024],
   version: [Draft 1.0],
 )
 #pagebreak()
 
-// Sommaire / Table of Contents
+// Table of Contents
 #show outline: set heading(numbering: none)
-#outline(title: [Sommaire])
+#outline(title: [Table of Contents])
 #pagebreak()
 
 
@@ -136,6 +136,9 @@ This document provides the technical specification for #gls("ipcd") (Inter-Plane
 ```
 #figure(
   image("/assets/schema/image/s1.png"),
+  caption: [
+    IPCD High-Level Actor Architecture. The Smart Client requests a candidate node list from the Neova Metadata Server, probes provider nodes (IPFS + Superviseur) for performance, and downloads from the optimal node directly.
+  ],
 )
 
 
@@ -198,5 +201,8 @@ The end-to-end data retrieval sequence under the #gls("ipcd") protocol is a mult
 #print-paper-glossary(show-all: true)
 
 // Bibliography / References
+#pagebreak()
+#show outline: set heading(numbering: none)
+#outline(title: [List of Figures], target: figure.where(kind: image))
 #pagebreak()
 #bibliography("references.bib", title: [References], style: "ieee", full: true)
