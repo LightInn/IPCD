@@ -3,13 +3,51 @@
 #show: make-glossary
 #register-glossary(entry-list)
 
+#let body-fonts = ("Noto Serif", "DejaVu Serif")
+#let heading-fonts = ("Noto Sans", "DejaVu Sans")
+
+#set page(
+  paper: "a4",
+  margin: 2.5cm,
+  footer: context [
+    #align(center)[
+      #set text(font: heading-fonts, size: 9pt, weight: 500)
+      #counter(page).display()
+    ]
+  ],
+)
+#set text(font: body-fonts, size: 11pt, lang: "en", hyphenate: true)
+
+#set par(justify: true, first-line-indent: 0pt)
+#set block(spacing: 0.6em)
+#set list(spacing: 0.4em, indent: 1.2em)
+
+#show heading.where(level: 1): it => {
+  set text(font: heading-fonts, size: 18pt, weight: 700)
+  it
+}
+#show heading.where(level: 2): it => {
+  set text(font: heading-fonts, size: 14.5pt, weight: 650)
+  it
+}
+#show heading.where(level: 3): it => {
+  set text(font: heading-fonts, size: 12.5pt, weight: 650)
+  it
+}
+#show heading.where(level: 4): it => {
+  set text(font: heading-fonts, size: 11.5pt, weight: 600)
+  it
+}
+
 #let horizontalrule = [
-  #line(start: (25%, 0%), end: (75%, 0%))
+  #line(start: (25%, 0%), end: (75%, 0%), stroke: 0.6pt + gray)
 ]
 
 #align(center)[
+  #set text(font: heading-fonts, size: 20pt, weight: 700)
   #strong[NEOVA PROTOCOL] \
-  #emph[Technical Whitepaper / Vision Document]
+  #set text(font: heading-fonts, size: 12pt, weight: 500)
+  Technical Whitepaper / Vision Document
 ]
 
 #align(center)[
