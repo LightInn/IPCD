@@ -76,30 +76,28 @@
 
 == Executive Summary
 
-In an era where modern infrastructure is paramount, the chasm between decentralized storage and high-performance content delivery remains a critical bottleneck to mass adoption. This paper introduces #gls("ipcd") (Inter-Planetary Content Delivery), a free and open-source protocol put forward by Neova to bridge this gap. #gls("ipcd") transforms Neova’s robust decentralized storage network into an intelligent, native Content Delivery Network (CDN) by shifting the paradigm of network routing from a centralized server-side model to a dynamic, client-driven one. By allowing clients to algorithmically benchmark and select the optimal data retrieval path in real-time, #gls("ipcd") fundamentally enhances performance, fortifies network resilience, and actualizes the promise of true decentralization. This document elucidates the strategic context, architectural blueprint, and technical specifications of #gls("ipcd") - a core innovation designed to position Neova as the definitive backbone of tomorrow’s verifiable internet.
+In an era where modern infrastructure is paramount, the chasm between decentralized storage and high-performance content delivery remains a critical bottleneck to mass adoption. This paper introduces #gls("ipcd") (Inter-Planetary Content Delivery), a free and open-source protocol put forward by Neova to bridge this gap.
 
+#gls("ipcd") transforms Neova’s robust decentralized storage network into an intelligent, native Content Delivery Network (CDN) by shifting the paradigm of network routing from a centralized server-side model to a dynamic, client-driven one. By allowing clients to algorithmically benchmark and select the optimal data retrieval path in real-time, #gls("ipcd") fundamentally enhances performance, fortifies network resilience, and actualizes the promise of true decentralization. This document elucidates the strategic context, architectural blueprint, and technical specifications of #gls("ipcd") ;  a core innovation designed to position Neova as the definitive backbone of tomorrow’s verifiable internet.
 
 
 == Why This Matters <why-this-matters>
 The world runs on the cloud. Every photo streamed, every document shared, every video watched depends on infrastructure that has quietly become the backbone of the global economy. By 2032, cloud and storage services will represent a market approaching #emph[\$840 billion].
 
 But today’s cloud comes with a hidden cost: it’s owned and controlled by a handful of giants. Their systems scale, but they also create single points of failure, expose users to censorship and exploitation, and keep true data ownership out of reach.
-
 The internet of the future cannot be built on such a fragile foundation.
 
 == Where Decentralization Stands Today <where-decentralization-stands-today>
-Decentralized Physical Infrastructure Networks (DePIN) promise a safer, fairer, more resilient alternative. They already excel at storage: data can be split, encrypted, and distributed globally. But there’s one critical gap that has held them back from competing with Web2: #emph[fast, reliable delivery.]
+#gls("depin") promise a safer, fairer, more resilient alternative. They already excel at storage: data can be split, encrypted, and distributed globally. But there’s one critical gap that has held them back from competing with Web2: #emph[fast, reliable delivery.]
 
-In other words, getting data into the network is solved. Getting it #emph[out] at high speed - to millions of people, anywhere in the world - is not.
-
-This is the "last-mile problem."
+In other words, getting data into the network is solved. Getting it #emph[out] at high speed to millions of people, anywhere in the world is not. This is the "last-mile problem."
 
 == Neova’s Answer <neovas-answer>
-Neova was designed from the ground up to close this gap. It’s more than a protocol - it’s a decentralized cloud ecosystem that blends three powerful elements:
+Neova was designed from the ground up to close this gap. It’s more than a protocol; it’s a decentralized cloud ecosystem that blends three powerful elements:
 
-- #emph[Peer-to-Peer Infrastructure:] From enterprise servers to Raspberry Pi devices, anyone can contribute capacity and earn `$NEOV` rewards. The network scales itself.
-- #emph[IPFS at the Core:] Every file is secured by cryptographic hashing, content addressing, and end-to-end encrypted, ensuring data integrity and efficiency.
-- #emph[Enterprise-Grade Security:] Identity, encryption, and key management are integrated from the start, giving users privacy and sovereignty without extra complexity.
+- #strong[Peer-to-Peer Infrastructure:] From enterprise servers to Raspberry Pi devices, anyone can contribute capacity and earn `$NEOV` rewards. The network scales itself.
+- #strong[IPFS at the Core:] Every file is secured by cryptographic hashing, content addressing, and end-to-end encrypted, ensuring data integrity and efficiency.
+- #strong[Enterprise-Grade Security:] Identity, encryption, and key management are integrated from the start, giving users privacy and sovereignty without extra complexity.
 
 On top of this foundation, Neova already powers products like #emph[NeoDrive] (a decentralized storage alternative to Google Drive) and is soon launching #emph[NeoSign] (a secure signing solution). These tools show how Web3 can feel as simple as Web2 - but without compromise.
 
@@ -109,25 +107,36 @@ The missing piece was delivery. That’s where #gls("ipcd") comes in.
 
 Traditional CDNs work like traffic cops: a central authority decides which server gives you your data. This model is fast, but it’s also a bottleneck, centralized by definition, and reliant on BGP routing controlled by a handful of major players, creating a kind of "BGP mafia".
 
+#figure(
+  image("/assets/schema/image/s3.svg"),
+  caption: [
+    Traditional CDN, a central server routes requests to the nearest data center.
+  ],
+)
+// add space
+#v(2em)
+
 #gls("ipcd") flips the script. Instead of a server deciding for you, #emph[your device becomes its own intelligent routing agent.]
 
 Here’s the simple version:
 
 + You request a file. Neova’s backend gives you a list of verified providers that host it.
-+ Your device pings them all in real time - like checking which datahouse can ship fastest to your door.
++ Your device pings them all in real time like checking which datahouse can ship fastest to your door.
 + It chooses the best route and connects directly. No middleman, no lag.
+
+#pagebreak()
 
 == Why This Changes the Game <why-this-changes-the-game>
 - #emph[Performance that competes with Web2:] Videos can stream instantly. Files open fast. Enterprises can rely on speed.
 - #emph[Resilience by design:] If one provider slows down, your client instantly reroutes to another. Outages stop being outages.
 - #emph[True decentralization:] Routing decisions happen at the edge, on the client side. No one can censor or intercept.
-- #emph[Value that compounds:] Storage alone is passive. With #gls("ipcd"), Neova becomes a living, breathing delivery network. The utility - and thus the value - of the ecosystem and its token grows exponentially.
+- #emph[Value that compounds:] Storage alone is passive. With #gls("ipcd"), Neova becomes a living, breathing delivery network. The utility and thus the value of the ecosystem and its token grows exponentially.
 
 == The Big Picture <the-big-picture>
-With #gls("ipcd"), Neova doesn’t just store data. It delivers it - securely, privately, and at scale.
-
+With #gls("ipcd"), Neova doesn’t just store data. It delivers it securely, privately, and at scale.
 This elevates Neova from "a decentralized storage solution" to a #emph[complete decentralized cloud platform] ready for enterprise adoption and mass market use.
 
+#v(4em)
 #horizontalrule
 #pagebreak()
 
@@ -144,7 +153,7 @@ This document provides the technical specification for #gls("ipcd") (Inter-Plane
 - #emph[Smart Client (Intelligence Layer):] A software module (SDK) embedded within Neova’s native applications (e.g., #emph[NeoDrive]) and offered through its IaaS/STaaS API solutions. It is responsible for orchestrating the entire #gls("ipcd") selection process: requesting the candidate list, executing the benchmark, applying the selection algorithm, and managing the resilient data transfer.
 
 #figure(
-  image("/assets/schema/image/s1.png"),
+  image("/assets/schema/image/s1.svg"),
   caption: [
     IPCD High-Level Actor Architecture. The Smart Client requests a candidate node list from the Neova Metadata Server, probes provider nodes (IPFS + Superviseur) for performance, and downloads from the optimal node directly.
   ],
@@ -153,28 +162,38 @@ This document provides the technical specification for #gls("ipcd") (Inter-Plane
 == Detailed Protocol & Data Flow <detailed-protocol-data-flow>
 The end-to-end data retrieval sequence under the #gls("ipcd") protocol is a multi-stage, orchestrated process designed for security and performance.
 
-+ #emph[Authentication & Key Retrieval:] The user authenticates via #emph[Keycloak]. Concurrently, the Smart Client securely fetches the file’s decryption key from a #emph[Hashicorp Vault] instance, ensuring a zero-knowledge architecture from the perspective of the infrastructure.
++ #strong[Authentication & Key Retrieval:] The user authenticates via #emph[Keycloak]. Concurrently, the Smart Client securely fetches the file’s decryption key from a #emph[Hashicorp Vault] instance, ensuring a zero-knowledge architecture from the perspective of the infrastructure.
 
-+ #emph[Candidate Set Acquisition:] The Smart Client issues a secure API call to the Neova Metadata Server (e.g., `GET /api/v1/content/{cid}/nodes`). The server returns a JSON object containing a list of `multiaddrs` for provider nodes known to host the requested content. This list is pre-filtered by the backend based on node reputation, historical uptime, and other metrics reported by each node’s `Superviseur` service.
++ #strong[Candidate Set Acquisition:] The Smart Client issues a secure API call to the Neova Metadata Server (e.g., `GET /api/v1/content/{cid}/nodes`). The server returns a JSON object containing a list of `multiaddrs` for provider nodes known to host the requested content. This list is pre-filtered by the backend based on node reputation, historical uptime, and other metrics reported by each node’s `Superviseur` service.
 
-+ #emph[Client-Side Benchmarking:] The Smart Client initiates parallel performance probes to the candidate nodes.
++ #strong[Client-Side Benchmarking:] The Smart Client initiates parallel performance probes to the candidate nodes.
 
   - #emph[Primary Mechanism:] The client leverages libp2p’s standard ping protocol (`/ipfs/ping/1.0.0`) to measure round-trip time (RTT). The Neova ecosystem utilizes an optimized tool, `peeng`, for this purpose, designed for efficient, concurrent probing of IPFS peers.
   - #emph[Advanced Mechanism:] For more sophisticated scoring, the client may initiate a "mini-handshake" by requesting a single, small data block to derive a combined metric of latency and initial throughput.
 
-+ #emph[Optimal Node Selection & Load Balancing Strategy:] The client applies a configurable scoring algorithm to rank the nodes.
++ #strong[Optimal Node Selection & Load Balancing Strategy:] The client applies a configurable scoring algorithm to rank the nodes.
 
-  - #emph[Latency-First:] Prioritizes the lowest RTT, optimal for small files and interactive applications. Score = 1/RTT.
+  - #emph[Latency-First:] Prioritizes the lowest RTT, optimal for small files and interactive applications.
+  $ "Score" = 1/"RTT" $
+
   - #emph[Hybrid Scoring:] A weighted function balancing latency and throughput for general-purpose use.
+  $ "Score" = alpha dot 1/"RTT" + (1 - alpha) dot "Throughput" $
+  #emph(
+    [
+      "where $alpha in [0, 1]$ is a tunable weight parameter (e.g., $alpha = 0.7$ for latency-biased optimization).
+      "
+    ],
+  )
+
   - The node with the highest score is selected as the primary source.
 
-+ #emph[Resilient Data Transfer:] The Smart Client initiates a direct P2P connection to the chosen provider node(s) to fetch the encrypted data blocks via the IPFS #emph[Bitswap] protocol. The process incorporates several resilience mechanisms:
++ #strong[Resilient Data Transfer:] The Smart Client initiates a direct P2P connection to the chosen provider node(s) to fetch the encrypted data blocks via the IPFS #emph[Bitswap] protocol. The process incorporates several resilience mechanisms:
 
   - #emph[Automatic Fallback:] If the primary node becomes unresponsive, the client seamlessly retries with the next-best node from the ranked list.
   - #emph[Adaptive Switching:] The SDK continuously monitors transfer performance. If conditions degrade, it can migrate the session to a better-performing node mid-transfer.
   - #emph[Multi-Source Fetching:] For large files, the client can segment the download across the top 2-3 performing nodes simultaneously, maximizing bandwidth utilization.
 
-+ #emph[Client-Side Decryption & Verification:] Upon successful download, the Smart Client performs two final actions:
++ #strong[Client-Side Decryption & Verification:] Upon successful download, the Smart Client performs two final actions:
 
   - #emph[Integrity Verification:] The client cryptographically verifies the integrity of the received (encrypted) data by hashing it and comparing the result to the requested CID. This is an intrinsic security guarantee of IPFS.
   - #emph[Decryption:] The client uses the key retrieved from Hashicorp Vault to decrypt the data locally in memory, making the plaintext file available to the user.

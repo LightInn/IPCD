@@ -1,0 +1,16 @@
+---
+config:
+  theme: neo
+  look: handDrawn
+---
+sequenceDiagram
+    participant Client
+    participant ServerA as Cloud Server
+    participant CDN as CDN Server
+    Client->>ServerA: 1. Request File
+    ServerA-->>CDN: 2. Select best provider (centrally)
+    ServerA-->>Client: 3. Redirect to Provider A
+    Client->>CDN: 4. Download File
+    CDN-->>Client: 5. Deliver Data
+    note over ServerA: Centralized control & routing  
+    note over Client,CDN: Fast but introduces<br/>single point of failure
