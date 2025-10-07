@@ -12,9 +12,9 @@
   paper: "a4",
   margin: 2.5cm,
   footer: context [
-    #align(center)[
+    #align(right)[
       #set text(font: heading-fonts, size: 9pt, weight: 500)
-      #counter(page).display()
+      #counter(page).display() / #counter(page).final().first()
     ]
   ],
 )
@@ -61,7 +61,7 @@
   tagline: [A Paradigm Shift in Decentralized, Client-Driven Content Distribution],
   // To include logo, set logo to a path like "/assets/image/neova-logo.png"
   logo: "/assets/logo/logo_neova.svg",
-  authors: [Bréval LE FLOCH from NEOVA],
+  authors: ["Breval Le Floch", "Neova Labs"],
   date: [October 7, 2025],
   version: [Draft 1.1],
 )
