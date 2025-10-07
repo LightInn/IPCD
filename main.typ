@@ -76,9 +76,9 @@
 
 == Executive Summary
 
-In an era where modern infrastructure is paramount, the chasm between decentralized storage and high-performance content delivery remains a critical bottleneck to mass adoption. This paper introduces #gls("ipcd") (Inter-Planetary Content Delivery), a free and open-source protocol put forward by Neova to bridge this gap.
+In an era where modern infrastructure is paramount, the chasm between decentralized storage and high-performance content delivery remains a critical bottleneck to mass adoption. This paper introduces #gls("ipcd") (Inter-Planetary Content Delivery), a free and open-source protocol put forward by #gls("neova") to bridge this gap.
 
-#gls("ipcd") transforms Neova’s robust decentralized storage network into an intelligent, native Content Delivery Network (CDN) by shifting the paradigm of network routing from a centralized server-side model to a dynamic, client-driven one. By allowing clients to algorithmically benchmark and select the optimal data retrieval path in real-time, #gls("ipcd") fundamentally enhances performance, fortifies network resilience, and actualizes the promise of true decentralization. This document elucidates the strategic context, architectural blueprint, and technical specifications of #gls("ipcd") ;  a core innovation designed to position Neova as the definitive backbone of tomorrow’s verifiable internet.
+#gls("ipcd") transforms #gls("neova")’s robust decentralized storage network into an intelligent, native #gls("cdn") by shifting the paradigm of network routing from a centralized server-side model to a dynamic, client-driven one. By allowing clients to algorithmically benchmark and select the optimal data retrieval path in real-time, #gls("ipcd") fundamentally enhances performance, fortifies network resilience, and actualizes the promise of true decentralization. This document elucidates the strategic context, architectural blueprint, and technical specifications of #gls("ipcd"); a core innovation designed to position #gls("neova") as the definitive backbone of tomorrow’s verifiable internet.
 
 
 == Why This Matters <why-this-matters>
@@ -96,7 +96,7 @@ In other words, getting data into the network is solved. Getting it #emph[out] a
 Neova was designed from the ground up to close this gap. It’s more than a protocol; it’s a decentralized cloud ecosystem that blends three powerful elements:
 
 - #strong[Peer-to-Peer Infrastructure:] From enterprise servers to Raspberry Pi devices, anyone can contribute capacity and earn `$NEOV` rewards. The network scales itself.
-- #strong[IPFS at the Core:] Every file is secured by cryptographic hashing, content addressing, and end-to-end encrypted, ensuring data integrity and efficiency.
+- #strong[#gls("ipfs") at the Core:] Every file is secured by cryptographic hashing, content addressing, and end-to-end encrypted, ensuring data integrity and efficiency.
 - #strong[Enterprise-Grade Security:] Identity, encryption, and key management are integrated from the start, giving users privacy and sovereignty without extra complexity.
 
 On top of this foundation, Neova already powers products like #emph[NeoDrive] (a decentralized storage alternative to Google Drive) and is soon launching #emph[NeoSign] (a secure signing solution). These tools show how Web3 can feel as simple as Web2 - but without compromise.
@@ -148,9 +148,9 @@ This document provides the technical specification for #gls("ipcd") (Inter-Plane
 == Architectural Framework & Components <architectural-framework-components>
 #gls("ipcd") integrates seamlessly into Neova’s existing microservices architecture, orchestrating three primary actors:
 
-- #emph[Metadata Server (Neova Backend):] A core Neova service that maintains a real-time registry of provider nodes, their cryptographic identities, operational status, reputation scores, and a mapping of the Content Identifiers (CIDs) they host. In the #gls("ipcd") protocol, its function is to serve a filtered, pre-optimized list of candidate nodes to the client.
-- #emph[Provider Node (Storage & Distribution Layer):] A P2P network participant running the Neova provider stack, which includes #emph[IPFS Kubo], #emph[IPFS Cluster], and the #emph[`Superviseur`] Go service. Its role within #gls("ipcd") is to store encrypted data blocks, respond to client-initiated performance probes, and serve content requests via IPFS’s Bitswap protocol. Due to the nature of IPFS, content is replicated across multiple nodes, ensuring redundancy and high availability.
-- #emph[Smart Client (Intelligence Layer):] A software module (SDK) embedded within Neova’s native applications (e.g., #emph[NeoDrive]) and offered through its IaaS/STaaS API solutions. It is responsible for orchestrating the entire #gls("ipcd") selection process: requesting the candidate list, executing the benchmark, applying the selection algorithm, and managing the resilient data transfer.
+- #emph[Metadata Server (Neova Backend):] A core Neova service that maintains a real-time registry of provider nodes, their cryptographic identities, operational status, reputation scores, and a mapping of the Content Identifiers (#glspl("cid")) they host. In the #gls("ipcd") protocol, its function is to serve a filtered, pre-optimized list of candidate nodes to the client.
+- #emph[Provider Node (Storage & Distribution Layer):] A P2P network participant running the #gls("neova") provider stack, which includes #emph[#gls("ipfs") Kubo], #emph[#gls("ipfs") Cluster], and the #emph[#gls("superviseur")] Go service. Its role within #gls("ipcd") is to store encrypted data blocks, respond to client-initiated performance probes, and serve content requests via #gls("ipfs")’s #gls("bitswap") protocol. Due to the nature of #gls("ipfs"), content is replicated across multiple nodes, ensuring redundancy and high availability.
+- #emph[Smart Client (Intelligence Layer):] A software module (SDK) embedded within #gls("neova")’s native applications (e.g., #emph[NeoDrive]) and offered through its #gls("iaas")/#gls("staas") API solutions. It is responsible for orchestrating the entire #gls("ipcd") selection process: requesting the candidate list, executing the benchmark, applying the selection algorithm, and managing the resilient data transfer.
 
 #figure(
   image("/assets/schema/image/s1.svg"),
@@ -162,13 +162,13 @@ This document provides the technical specification for #gls("ipcd") (Inter-Plane
 == Detailed Protocol & Data Flow <detailed-protocol-data-flow>
 The end-to-end data retrieval sequence under the #gls("ipcd") protocol is a multi-stage, orchestrated process designed for security and performance.
 
-+ #strong[Authentication & Key Retrieval:] The user authenticates via #emph[Keycloak]. Concurrently, the Smart Client securely fetches the file’s decryption key from a #emph[Hashicorp Vault] instance, ensuring a zero-knowledge architecture from the perspective of the infrastructure.
++ #strong[Authentication & Key Retrieval:] The user authenticates via #emph[#gls("keycloak")]. Concurrently, the Smart Client securely fetches the file’s decryption key from a #emph[#gls("hashicorp-vault")] instance, ensuring a zero-knowledge architecture from the perspective of the infrastructure.
 
 + #strong[Candidate Set Acquisition:] The Smart Client issues a secure API call to the Neova Metadata Server (e.g., `GET /api/v1/content/{cid}/nodes`). The server returns a JSON object containing a list of `multiaddrs` for provider nodes known to host the requested content. This list is pre-filtered by the backend based on node reputation, historical uptime, and other metrics reported by each node’s `Superviseur` service.
 
 + #strong[Client-Side Benchmarking:] The Smart Client initiates parallel performance probes to the candidate nodes.
 
-  - #emph[Primary Mechanism:] The client leverages libp2p’s standard ping protocol (`/ipfs/ping/1.0.0`) to measure round-trip time (RTT). The Neova ecosystem utilizes an optimized tool, `peeng`, for this purpose, designed for efficient, concurrent probing of IPFS peers.
+  - #emph[Primary Mechanism:] The client leverages #gls("libp2p")’s standard ping protocol (`/ipfs/ping/1.0.0`) to measure #gls("rtt"). The #gls("neova") ecosystem utilizes an optimized tool, #gls("peeng"), for this purpose, designed for efficient, concurrent probing of #gls("ipfs") peers.
   - #emph[Advanced Mechanism:] For more sophisticated scoring, the client may initiate a "mini-handshake" by requesting a single, small data block to derive a combined metric of latency and initial throughput.
 
 + #strong[Optimal Node Selection & Load Balancing Strategy:] The client applies a configurable scoring algorithm to rank the nodes.
@@ -187,7 +187,7 @@ The end-to-end data retrieval sequence under the #gls("ipcd") protocol is a mult
 
   - The node with the highest score is selected as the primary source.
 
-+ #strong[Resilient Data Transfer:] The Smart Client initiates a direct P2P connection to the chosen provider node(s) to fetch the encrypted data blocks via the IPFS #emph[Bitswap] protocol. The process incorporates several resilience mechanisms:
++ #strong[Resilient Data Transfer:] The Smart Client initiates a direct P2P connection to the chosen provider node(s) to fetch the encrypted data blocks via the #gls("ipfs") #gls("bitswap") protocol. The process incorporates several resilience mechanisms:
 
   - #emph[Automatic Fallback:] If the primary node becomes unresponsive, the client seamlessly retries with the next-best node from the ranked list.
   - #emph[Adaptive Switching:] The SDK continuously monitors transfer performance. If conditions degrade, it can migrate the session to a better-performing node mid-transfer.
@@ -195,7 +195,7 @@ The end-to-end data retrieval sequence under the #gls("ipcd") protocol is a mult
 
 + #strong[Client-Side Decryption & Verification:] Upon successful download, the Smart Client performs two final actions:
 
-  - #emph[Integrity Verification:] The client cryptographically verifies the integrity of the received (encrypted) data by hashing it and comparing the result to the requested CID. This is an intrinsic security guarantee of IPFS.
+  - #emph[Integrity Verification:] The client cryptographically verifies the integrity of the received (encrypted) data by hashing it and comparing the result to the requested #gls("cid"). This is an intrinsic security guarantee of #gls("ipfs").
   - #emph[Decryption:] The client uses the key retrieved from Hashicorp Vault to decrypt the data locally in memory, making the plaintext file available to the user.
 
 #figure(
@@ -211,7 +211,7 @@ The end-to-end data retrieval sequence under the #gls("ipcd") protocol is a mult
 
 - #emph[Data Integrity:] Content-addressing via IPFS CIDs provides absolute data integrity. Any alteration of the data in transit would result in a different CID, causing the client-side verification to fail.
 - #emph[Data Confidentiality:] End-to-end encryption ensures that all data stored on and traversing the provider network is opaque. Decryption keys are managed by an enterprise-grade secrets management system (#gls("hashicorp-vault")) and are accessible only to the authenticated user, enforcing a zero-knowledge policy for the infrastructure.
-- #emph[Provider Authentication & Sybil Resistance:] Each provider node possesses a cryptographic identity tied to its IPFS Cluster private key. This identity is used to sign a registration payload containing its EVM address, proving ownership to the Neova backend. This, combined with Neova’s economic model of rewards and #emph[slashing], creates a strong disincentive for malicious behavior (e.g., Sybil attacks) by enforcing financial penalties for non-compliance.
+- #emph[Provider Authentication & Sybil Resistance:] Each provider node possesses a cryptographic identity tied to its #gls("ipfs") Cluster private key. This identity is used to sign a registration payload containing its #gls("evm") address, proving ownership to the #gls("neova") backend. This, combined with #gls("neova")’s economic model of rewards and #emph[slashing], creates a strong disincentive for malicious behavior (e.g., Sybil attacks) by enforcing financial penalties for non-compliance.
 - #emph[Secure Transport:] All P2P communication is conducted over secure channels established using protocols like Noise or TLS 1.3, as provided by the libp2p stack, protecting against eavesdropping and tampering.
 
 == Node Connectivity & Firewalls <node-connectivity-firewalls>
