@@ -127,6 +127,7 @@
   print-glossary(
     entry-list,
     show-all: show-all,
+    disable-back-references: true,
   )
 }
 
