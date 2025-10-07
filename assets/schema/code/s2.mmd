@@ -1,0 +1,40 @@
+sequenceDiagram
+    participant Client
+    participant Backend as Neova Backend
+    participant Vault
+    participant NodeA as Provider Node A
+    participant NodeB as Provider Node B
+
+    %% Authentication and file retrieval
+    Client->>Backend: 1. Login request
+    Backend-->>Client: JWT Token
+
+    Client->>Backend: 2. Request File
+    Backend-->>Client: CID (Content Identifier)
+
+    %% Key retrieval via Vault
+    Client->>Vault: 3. Request File Key (authorized via Backend)
+    Vault-->>Client: Decryption Key
+
+    %% Node discovery
+    Client->>Backend: 4. Request Nodes for CID
+    Backend-->>Client: Node list [Node A, Node B]
+
+    %% Benchmarking
+    par Ping Node A
+        Client->>NodeA: 5. Ping
+        NodeA-->>Client: Pong (RTT A)
+    and Ping Node B
+        Client->>NodeB: 5. Ping
+        NodeB-->>Client: Pong (RTT B)
+    end
+
+    %% Node selection
+    Client-->>Client: 7. Process RTTs, select Node A
+
+    %% Data retrieval
+    Client->>NodeA: 8. Get Encrypted Blocks
+    NodeA-->>Client: 9. Encrypted Data Blocks
+
+    %% Final decryption
+    Client-->>Client: 10. Local Decryption and File Presentation
