@@ -45,6 +45,20 @@
     group: "Protocols",
   ),
   (
+    key: "iaas",
+    short: "IaaS",
+    long: "Infrastructure as a Service",
+    description: [A cloud computing model where virtualized computing resources are provided over the internet.],
+    group: "Concepts",
+  ),
+  (
+    key: "staas",
+    short: "STaaS",
+    long: "Storage as a Service",
+    description: [A business model where a company leases or rents its storage infrastructure to another company or individuals.],
+    group: "Concepts",
+  ),
+  (
     key: "peeng",
     short: "peeng",
     long: "peeng (libp2p ping tool)",
@@ -87,10 +101,10 @@
     group: "Security",
   ),
   (
-    key: "vaultwarden",
-    short: "Vaultwarden",
-    long: "Vaultwarden",
-    description: [Self-hosted secrets manager providing key storage; used to retrieve decryption keys.],
+    key: "hashicorp-vault",
+    short: "Hashicorp Vault",
+    long: "Hashicorp Vault",
+    description: [An enterprise-grade secrets management system used to retrieve decryption keys.],
     group: "Security",
   ),
   (
@@ -110,7 +124,10 @@
 // Print the glossary with an optional flag to show all entries
 #let print-paper-glossary = (show-all: true) => {
   heading(level: 2)[Glossary]
-  print-glossary(entry-list, show-all: show-all)
+  print-glossary(
+    entry-list,
+    show-all: show-all,
+  )
 }
 
 // Note: Typst modules export top-level definitions by default; no explicit export directive needed.
