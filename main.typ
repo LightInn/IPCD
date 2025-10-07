@@ -179,6 +179,14 @@ The end-to-end data retrieval sequence under the #gls("ipcd") protocol is a mult
   - #emph[Integrity Verification:] The client cryptographically verifies the integrity of the received (encrypted) data by hashing it and comparing the result to the requested CID. This is an intrinsic security guarantee of IPFS.
   - #emph[Decryption:] The client uses the key retrieved from Hashicorp Vault to decrypt the data locally in memory, making the plaintext file available to the user.
 
+#figure(
+  image("/assets/schema/image/s2.svg"),
+  caption: [
+    IPCD Protocol Flow. The Smart Client authenticates, retrieves a candidate node list, benchmarks
+    providers, selects the optimal node, and downloads the content directly.
+  ],
+)
+
 == Cryptographic & Security Architecture <cryptographic-security-architecture>
 #gls("ipcd")’s security model is multi-layered, leveraging the cryptographic primitives of the underlying Neova and IPFS architecture.
 
