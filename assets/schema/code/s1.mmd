@@ -1,16 +1,11 @@
----
-config:
-  theme: neutral
-  look: handDrawn
----
 flowchart TB
-    Backend["Neova Backend<br/>(Metadata Server)"]
-    Vault["Hashicorp<br/>(Keys)"]
-    Client{{"Smart Client<br/>(Neova SDK)"}}
-    Selector{"Selection<br/>Algorithm"}
-    P1[("Provider Node A<br/>IPFS + Superviseur")]
-    P2[("Provider Node B<br/>IPFS + Superviseur")]
-    P3[("Provider Node C<br/>IPFS + Superviseur")]
+    Backend["Metadata Server"]
+    Vault["Keys Vault"]
+    Client["Neova SDK"]
+    Selector["Algorithm"]
+    P1["Provider Node A"]
+    P2["Provider Node B"]
+    P3["Provider Node C"]
     Client -->|"1-File Request (CID)"| Backend
     Backend -->|"2-Candidate Node List (multiaddrs)"| Client
     Client -->|"Key Request"| Vault

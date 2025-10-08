@@ -153,7 +153,7 @@ This document provides the technical specification for #gls("ipcd") (Inter-Plane
 - #emph[Smart Client (Intelligence Layer):] A software module (SDK) embedded within #gls("neova")’s native applications (e.g., #emph[NeoDrive]) and offered through its #gls("iaas")/#gls("staas") API solutions. It is responsible for orchestrating the entire #gls("ipcd") selection process: requesting the candidate list, executing the benchmark, applying the selection algorithm, and managing the resilient data transfer.
 
 #figure(
-  image("/assets/schema/image/s1.svg"),
+  image("/assets/schema/image/s1.png"),
   caption: [
     IPCD High-Level Actor Architecture. The Smart Client requests a candidate node list from the Neova Metadata Server, probes provider nodes (IPFS + Superviseur) for performance, and downloads from the optimal node directly.
   ],
