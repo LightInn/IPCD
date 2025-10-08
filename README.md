@@ -146,17 +146,19 @@ This document and all associated materials are the exclusive property of the aut
 
 ### Rights and Usage
 
-1. **Ownership**: The author retains full and exclusive ownership of all intellectual property rights, including but not limited to copyrights, patents, trade secrets, and any other proprietary rights.
+1. **Ownership**: The author retains full and exclusive ownership of all intellectual property rights to the original work, including but not limited to copyrights, patents, trade secrets, and any other proprietary rights.
 
-2. **Conditional Grant**: The author may, at their sole discretion, grant temporary, revocable, and non-transferable rights to third parties (including but not limited to employers, contractors, or business partners) to use, modify, or distribute this work.
+2. **Third-Party Materials**: Certain logos, trademarks, and brand materials contained within this document are the property of their respective owners. The author makes no claim of ownership over such third-party materials. Company names and trademarks are referenced for descriptive purposes only.
 
-3. **Revocation**: Any granted rights are conditional and may be revoked by the author at any time, for any reason, with or without notice. Upon revocation, all rights immediately revert to the author, and the recipient must cease all use and return or destroy all copies.
+3. **Conditional Grant**: The author may, at their sole discretion, grant temporary, revocable, and non-transferable rights to third parties (including but not limited to employers, contractors, or business partners) to use, modify, or distribute this work.
 
-4. **No Transfer**: Any rights granted are personal to the recipient and may not be sublicensed, assigned, or transferred to any other party without explicit written consent from the author.
+4. **Revocation**: Any granted rights are conditional and may be revoked by the author at any time, for any reason, with or without notice. Upon revocation, all rights immediately revert to the author, and the recipient must cease all use and return or destroy all copies.
 
-5. **Employment Independence**: Rights granted to an employer or company are contingent upon the author's continued association with that entity. Upon termination of employment or contractual relationship (whether voluntary or involuntary), all granted rights automatically and immediately terminate, and the author retains full control of the work.
+5. **No Transfer**: Any rights granted are personal to the recipient and may not be sublicensed, assigned, or transferred to any other party without explicit written consent from the author.
 
-6. **Modification**: The author reserves the right to modify, relicense, or change the terms of this license at any time.
+6. **Employment Independence**: Rights granted to an employer or company are contingent upon the author's continued association with that entity. Upon termination of employment or contractual relationship (whether voluntary or involuntary), all granted rights automatically and immediately terminate, and the author retains full control of their original work (excluding third-party materials owned by the company).
+
+7. **Modification**: The author reserves the right to modify, relicense, or change the terms of this license at any time.
 
 ### Disclaimer
 
