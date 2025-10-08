@@ -40,20 +40,16 @@ jobs:
         run: |
           typst compile main.typ doc/main-{p}.svg
       
-      - name: Compile to PDF
-        run: |
-          typst compile main.typ main.pdf
-      
       - name: Check for changes
         id: git-check
         run: |
-          git diff --exit-code doc/ main.pdf || echo "changes=true" >> $GITHUB_OUTPUT
+          git diff --exit-code doc/ || echo "changes=true" >> $GITHUB_OUTPUT
       
       - name: Commit and push if changes
         if: steps.git-check.outputs.changes == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add doc/*.svg main.pdf
-          git commit -m "🤖 Auto-update documentation images and PDF [skip ci]"
+          git add doc/*.svg
+          git commit -m "🤖 Auto-update documentation images [skip ci]"
           git push
