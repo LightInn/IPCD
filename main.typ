@@ -61,7 +61,7 @@
   tagline: [A Paradigm Shift in Decentralized, Client-Driven Content Distribution],
   // To include logo, set logo to a path like "/assets/image/neova-logo.png"
   logo: "/assets/logo/logo_neova.svg",
-  authors: ["Breval Le Floch", "Neova Labs"],
+  authors: ["Breval Le Floch"],
   date: [October 7, 2025],
   version: [Draft 1.1],
 )
