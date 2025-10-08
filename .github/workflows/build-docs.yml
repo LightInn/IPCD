@@ -1,0 +1,59 @@
+name: Build Documentation Images
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.typ'
+      - 'assets/**'
+      - 'content/**'
+      - 'references.bib'
+      - '.github/workflows/build-docs.yml'
+
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Install Typst
+        run: |
+          wget https://github.com/typst/typst/releases/latest/download/typst-x86_64-unknown-linux-musl.tar.xz
+          tar -xf typst-x86_64-unknown-linux-musl.tar.xz
+          sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/
+          typst --version
+      
+      - name: Create doc directory
+        run: mkdir -p doc
+      
+      - name: Compile to SVG
+        run: |
+          typst compile main.typ doc/main-{p}.svg
+      
+      - name: Compile to PDF
+        run: |
+          typst compile main.typ main.pdf
+      
+      - name: Check for changes
+        id: git-check
+        run: |
+          git diff --exit-code doc/ main.pdf || echo "changes=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push if changes
+        if: steps.git-check.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add doc/*.svg main.pdf
+          git commit -m "🤖 Auto-update documentation images and PDF [skip ci]"
+          git push

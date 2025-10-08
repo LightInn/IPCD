@@ -1,0 +1,59 @@
+name: Build and Attach PDF to Release
+
+on:
+  release:
+    types: [created, published]
+  
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag to attach PDF to'
+        required: true
+        type: string
+
+jobs:
+  build-and-upload:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+      
+      - name: Install Typst
+        run: |
+          wget https://github.com/typst/typst/releases/latest/download/typst-x86_64-unknown-linux-musl.tar.xz
+          tar -xf typst-x86_64-unknown-linux-musl.tar.xz
+          sudo mv typst-x86_64-unknown-linux-musl/typst /usr/local/bin/
+          typst --version
+      
+      - name: Compile to PDF
+        run: |
+          typst compile main.typ IPCD-Whitepaper.pdf
+      
+      - name: Get release info
+        id: get_release
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            RELEASE_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+              "https://api.github.com/repos/${{ github.repository }}/releases/tags/${{ inputs.tag }}" | jq -r '.id')
+            echo "upload_url=https://uploads.github.com/repos/${{ github.repository }}/releases/${RELEASE_ID}/assets" >> $GITHUB_OUTPUT
+            echo "tag_name=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "upload_url=${{ github.event.release.upload_url }}" >> $GITHUB_OUTPUT
+            echo "tag_name=${{ github.event.release.tag_name }}" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Upload PDF to Release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
+          asset_path: ./IPCD-Whitepaper.pdf
+          asset_name: IPCD-Whitepaper-${{ steps.get_release.outputs.tag_name }}.pdf
+          asset_content_type: application/pdf
