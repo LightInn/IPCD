@@ -137,7 +137,5 @@ typst watch main.typ doc/main-{p}.svg
 </details>
 
 ## License
-
-**Proprietary and Confidential**
 IPCD is available under the [MIT License](https://github.com/LightInn/IPCD/blob/main/LICENSE)
 
